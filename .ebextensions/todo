@@ -1,0 +1,7 @@
+options for moving up to newer instance, so far missing gdal for postgis
+
+yum : gcc gcc-c++ make libtool curl libxml2 libxml2-devel python-devel
+
+libjpeg-devel to libjpeg-turbo-devel
+
+postgresql-devel to postgresql93-devel

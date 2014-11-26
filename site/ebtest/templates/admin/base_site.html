@@ -1,0 +1,12 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{# TODOB This can be deleted if using grappelli, use settings.py to overwrite #}
+
+{% block title %}{{ title }} | {% trans 'TODOB [projectname] Administration' %}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">{% trans 'TODOB [projectname] administration' %}</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

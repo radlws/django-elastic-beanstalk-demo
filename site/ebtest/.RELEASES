@@ -1,0 +1,617 @@
+trapeze-1.0.8STABLE
+===================
+
+Tagged on June 7, 2013 by stoe
+
+
+Minor code changes
+------------------
+* Added support for geodjango.
+
+
+
+* * *
+
+
+trapeze-1.0.7STABLE
+===================
+
+Tagged on June 6, 2012 by zmathew
+
+
+Minor code changes
+------------------
+* Dump devdata excludes q85 thumbnail files
+
+
+
+* * *
+
+
+
+trapeze-1.0.6STABLE
+===================
+
+Tagged on May 15, 2012 by zmathew
+
+
+Minor code changes
+------------------
+* Load devdata checks if db is live and gives you a warning.
+
+
+
+* * *
+
+
+
+trapeze-1.0.5STABLE
+===================
+
+Tagged on May 14, 2012 by Jared Kerim <jkerim@trapeze.com>
+
+
+Minor code changes
+------------------
+* Removed Session, Log deletion on dump_devdata
+
+
+
+* * *
+
+
+
+trapeze-1.0.4STABLE
+===================
+
+Tagged on April 18, 2012 by David Cooper <dcooper@trapeze.com>
+
+
+Minor code changes
+------------------
+* Upgraded to `pep-1.0.1`
+* Disabled checks in the `served/` folder
+
+
+* * *
+
+
+trapeze-1.0.3STABLE
+===================
+
+Tagged on February 15, 2012 by stoe
+
+
+Minor code changes
+------------------
+* Added an rsync option to omit setting time on directories.
+
+
+* * *
+
+
+
+
+
+trapeze-1.0.2STABLE
+===================
+
+Tagged on February 7, 2012 by fbeaufort
+
+
+Minor code changes
+------------------
+* [dump_devdata] Revert: Run Time Synchronization before dumping dev data
+
+
+
+* * *
+
+
+
+trapeze-1.0.1STABLE
+===================
+
+Tagged on February 7, 2012 by fbeaufort
+
+
+Minor code changes
+------------------
+* [dump_devdata] Run Time Synchronization before dumping dev data
+* [dump_devdata] Clear all sessions before dumping dev data in order to get clean dev data
+
+
+
+* * *
+
+
+
+trapeze-1.0.0STABLE
+===================
+
+Tagged on January 13, 2012 by zmathew
+
+Tested in royfoss, thus jumping to STABLE quality
+
+Major code changes
+------------------
+* Changed to be compatible with the new media/static layout
+
+
+
+* * *
+
+
+
+trapeze-0.8.2STABLE
+===================
+
+Tagged on December 12, 2012 by zmathew
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* Fixed issue with load_devdata asking for password
+
+
+
+* * *
+
+
+
+trapeze-0.8.1RC
+===================
+
+Tagged on December 7, 2011 by asibley
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* Added ``setup.py`` and related files to create distribution packaging.
+
+* * *
+
+trapeze-0.8.0STABLE
+===================
+
+Tagged on November 28, 2011 by David Cooper <dcooper@trapeze.com>
+
+
+Major Code Changes
+------------------
+* Updated `clean_files` command to work properly.
+
+
+* * *
+
+
+trapeze-0.7.3STABLE
+===================
+
+Tagged on September 28, 2011 by Francois Beaufort <fbeaufort@trapeze.com>
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* Added ``absolute_media_url`` to settings.APP_NAMES_TO_PACKAGE
+
+
+* * *
+
+
+trapeze-0.7.2STABLE
+===================
+
+Tagged on September 14, 2011 by Francois Beaufort <fbeaufort@trapeze.com>
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* Removed annoying password prompt when using load_devdata command
+
+
+* * *
+
+
+trapeze-0.7.1STABLE
+===================
+
+Tagged on September 9, 2011 by Francois Beaufort <fbeaufort@trapeze.com>
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* Remove Django Admin log when using dump_devdata command
+
+
+* * *
+
+
+trapeze-0.7.0STABLE
+===================
+
+Tagged on September 7, 2011 by David Cooper <dcooper@trapeze.com>
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* Upgraded bundled pyflakes to pyflakes-0.5.0
+
+
+* * *
+
+
+trapeze-0.7.0ALPHA
+==================
+
+Tagged on August 29, 2011 by David Cooper <dcooper@trapeze.com>
+
+
+Major Code Changes
+------------------
+* 001011-634: trapeze: checkstyle-ignore comment
+
+
+* * *
+
+
+trapeze-0.6.3ALPHA
+==================
+
+Tagged on August 10, 2011 by David Cooper <dcooper@trapeze.com>
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* Checkstyle tests now enabled by default. You'll need to set `CHECKSTYLE_TESTS_ENABLED = False` in your `settings.py` to disable.
+* Documentation of settings moved to actual Python file @ `trapeze/settings.py`.
+* Refactoring of `trapeze/tests.py:CheckstyleTests`
+
+
+* * *
+
+
+
+trapeze-0.6.2ALPHA
+==================
+
+Tagged on August 9,  2011 by David Cooper <dcooper@trapeze.com>
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* Checkstyle test generator code now encapsulated in trapeze.tests.CheckstyleTests
+
+
+* * *
+
+
+trapeze-0.6.1ALPHA
+==================
+
+Tagged on August 9,  2011 by David Cooper <dcooper@trapeze.com>
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* If `pysvn` library is not found in `get_app` and `upgrade` commands, raise a CommandError
+
+
+* * *
+
+
+trapeze-0.6.0ALPHA
+==================
+
+Tagged on August 9,  2011 by David Cooper <dcooper@trapeze.com>
+
+
+Major Code Changes
+------------------
+* 001011-632: trapeze: checkstyle test generator
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* checkstyle refactored heavily and logic moved out of the Command class, to allow for better re-usage of code (ie, in a test runner)
+
+
+Upgrade Instructions
+--------------------
+* None
+
+
+Known issues
+------------
+* 001011-601: trapeze: Add the ability to reset the dev data dump
+
+
+* * *
+
+
+trapeze-0.5.2STABLE
+===================
+
+Tagged on July 8, 2011 by Kelly Lee <klee@trapeze.com>
+
+Major Code Changes
+------------------
+* None
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* 001011-625: trapeze: dump_devdata and load_devdata are not compatible with django 1.3 db dict
+
+Upgrade Instructions
+--------------------
+* None
+
+
+Known issues
+------------
+* 001011-601: trapeze: Add the ability to reset the dev data dump
+
+
+* * *
+
+trapeze-0.5.1STABLE
+===================
+
+Tagged on June 20, 2011 by David Cooper <dcooper@trapeze.com>
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* This app now passes checkstyle
+
+
+* * *
+
+
+trapeze-0.5.0STABLE
+===================
+
+Tagged on June 10, 2011 by Kelly Lee <klee@trapeze.com>
+
+
+Major Code Changes
+------------------
+* None
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* Added mkmessages command
+
+
+Upgrade Instructions
+--------------------
+* None
+
+
+Known issues
+------------
+* None
+
+
+
+* * *
+
+
+
+trapeze-0.5.0ALPHA
+==================
+
+Tagged on June 8, 2011 by Kelly Lee <klee@trapeze.com>
+
+
+Major Code Changes
+------------------
+* None
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* Added mkmessages command
+
+
+Upgrade Instructions
+--------------------
+* None
+
+
+Known issues
+------------
+* None
+
+
+
+* * *
+
+
+
+trapeze-0.4.0ALPHA
+==================
+
+Tagged on June 7, 2011 by Zach Mathew <zmathew@trapeze.com>
+
+
+Major Code Changes
+------------------
+* None
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* Added get_app command
+
+
+Upgrade Instructions
+--------------------
+* None
+
+
+Known issues
+------------
+* None
+
+
+
+* * *
+
+
+
+trapeze-0.3.2ALPHA
+==================
+
+Tagged on June 7, 2011 by David Cooper <dcooper@trapeze.com>
+
+
+Major Code Changes
+------------------
+* None
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* Removed pyc_cleanup. This tool already exists in django_command_extensions.
+
+
+Upgrade Instructions
+--------------------
+* None
+
+
+Known issues
+------------
+* None
+
+
+
+* * *
+
+
+
+trapeze-0.3.1ALPHA
+==================
+
+Tagged on June 4, 2011 by Zach Mathew <zmathew@trapeze.com>
+
+
+Major Code Changes
+------------------
+* None
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* upgrade command now exports the reusable app into src and updates symlink.
+
+
+Upgrade Instructions
+--------------------
+* None
+
+
+Known issues
+------------
+* None
+
+
+
+* * *
+
+
+
+trapeze-0.3.0ALPHA
+==================
+
+Tagged on June 4, 2011 by Zach Mathew <zmathew@trapeze.com>
+
+
+Major Code Changes
+------------------
+* Added support for upgrade command
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+*
+
+
+Upgrade Instructions
+--------------------
+* None
+
+
+Known issues
+------------
+* None
+
+
+
+* * *
+
+
+
+trapeze-0.2.0ALPHA
+==================
+
+Tagged on May 31, 2011 by David Cooper <dcooper@trapeze.com>
+
+
+Major Code Changes
+------------------
+* New commands added: checkstyle, clean_files, and test_all.
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* Code now passes checkstyle.
+
+
+Upgrade Instructions
+--------------------
+* None
+
+
+Known issues
+------------
+* None
+
+
+
+* * *
+
+
+trapeze-0.1.0ALPHA
+==================
+
+Tagged on May 12, 2011 by Zach Mathew <zmathew@trapeze.com>
+
+
+Major Code Changes
+------------------
+* Everything is new
+
+
+Bugs Fixes and Small Enhancements
+---------------------------------
+* None
+
+
+Upgrade Instructions
+--------------------
+* None
+
+
+Known issues
+------------
+* None
+
+
+
+* * *
+
+

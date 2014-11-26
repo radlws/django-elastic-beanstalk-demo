@@ -1,0 +1,42 @@
+{
+    "less": {
+        "core": {
+            "src": [
+                "less/base.less",
+                "subfolder/less/sub.less"
+            ],
+            "attrs": {
+                "media": "screen"
+            },
+            "dest": "compiled/css/core.min.css"
+        }
+    },
+    "css": {
+        "page": {
+            "src": [
+                "css/page.css"
+            ],
+            "dest": "compiled/css/page.min.css"
+        }
+    },
+    "js": {
+        "core": {
+            "src": [
+                "js/core.js"
+            ],
+            "dest": "compiled/js/core.min.js"
+        },
+        "test_en": {
+            "src": [
+                "js/test-en.js"
+            ],
+            "dest": "compiled/js/test-en.min.js"
+        },
+        "test_fr": {
+            "src": [
+                "js/test-fr.js"
+            ],
+            "dest": "compiled/js/test-fr.min.js"
+        }
+    }
+}

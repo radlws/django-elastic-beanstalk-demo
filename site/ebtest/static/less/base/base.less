@@ -1,0 +1,93 @@
+@import "../settings.less";
+
+
+// TYPOGRAPHY
+// ==========
+
+html, body {
+    height: 100%;
+}
+
+html {
+    font-size: @font_size;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    line-height: 1.6;
+    color: @color_default;
+}
+
+
+// Header
+// -------------------------------------------------
+
+h1, h2, h3, h4, h5, h6 {
+}
+
+h1 {
+}
+
+h2 {
+}
+
+h3 {
+}
+
+h4 {
+}
+
+
+// Inline and Text Blocks
+// -------------------------------------------------
+
+p {
+}
+
+em {
+}
+
+
+// Anchors
+// -------------------------------------------------
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover,
+    &:active,
+    &:focus {
+        text-decoration: underline;
+    }
+}
+
+// --- Forms -----------------------------------------
+
+label {
+    display: block;
+    margin-bottom: 0;
+    padding-left: 2px;
+}
+
+input[type=text],
+input[type=password],
+select,
+textarea {
+    .boxSizing();
+    width: 100%;
+    background: #fff;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+input[type=text],
+input[type=password] {
+    padding: 5px 10px;
+    border-width: 0;
+    .borderRadius(4px);
+    .boxShadow(inset 0 1px 3px rgba(0, 0, 0, 0.5));
+}

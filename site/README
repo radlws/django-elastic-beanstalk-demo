@@ -1,0 +1,116 @@
+Project Name
+============
+
+External Dependencies
+---------------------
+
+This is the list of softwares and libraries required for this project.
+Pure python dependencies such as markdown.py are not be listed here since
+they are included in the project repository.
+
+* Python 2.7.x
+* Python Imaging Library > 1.1.6
+* Python psycopg2 > 2.0.6
+* Fabric > 1.5.0
+
+
+### PostGIS (Optional, if Geo Mapping is a requirement)
+
+Install PostGIS 2.0. Check instructions here: <https://office.trapeze.com/wiki/best_practices/ubuntu_server_setup/>
+
+### Creating a spatial database manually 
+
+Normally, you don't need to run these instructions.
+
+    dropdb <sitename>_dev
+    createdb <sitename>_dev --owner devteam
+    psql <sitename>_dev -U postgres  # You must be super user to create extension
+
+    > CREATE EXTENSION postgis;
+    > ALTER TABLE spatial_ref_sys OWNER TO devteam;
+    > ALTER TABLE geography_columns OWNER TO devteam;
+    > ALTER TABLE geography_columns OWNER TO devteam;
+
+Development environment setup
+-----------------------------
+
+These are step-by-step instructions to have the project running on a local
+development environment. This includes getting a dump of the database, media files
+
+### Initial Project Setup
+
+If you are the first person setting up this project:
+
+* Install all the apps listed in `INSTALLED_APPS`.
+* Verify that the fabric tasks are available: `fab --list`.
+* Update this README file:
+    * Update the `<placeholders>`.
+    * Remove this Initial Project Setup section.
+
+### Project setup
+
+    # Run setup script
+    fab local_setup
+
+    # Run the tests. Make sure they all pass
+    ./manage.py test_all
+
+    # start dev server
+    ./manage.py runserver 0:8000
+    
+    # Optional (Postgis), replace psycopg2 driver with postgis driver 'django.contrib.gis.db.backends.postgis',
+    vim local_settings.py
+    :/'django.db.backends.postgresql_psycopg2'/'django.contrib.gis.db.backends.postgis'/g
+    :wq
+    
+    # Optional (Beanstalk Deploy), copy the settings_beanstalk.py.ex file & update it
+    # settings_prod.py is the default used by Elastic Beanstalk, but it can be set to anything.
+    cp settings_beanstalk.py.ex settings_prod.py
+    vim settings_prod.py # make updates ...
+    :wq
+
+    # Optional (Beanstalk Deploy), software configuration to set for settings_prod.py to pickup:
+    # Necessary keys:
+    # AWS_ACCESS_KEY_ID - absolutely required, use master keys
+    # AWS_SECRET_KEY - absolutely required, use master keys
+    # PYTHONPATH - .:..:../lib
+    # SITE_NAME - live, staging, content
+    # DJANGO_SECRET_KEY - unique secret key
+    # AWS_STORAGE_BUCKET_NAME - storage bucket name, i.e. projectname-live
+    # DJANGO_STATIC_URL - URL to static media bucket + /media/ folder
+    # DJANGO_MEDIA_URL - URL to static media bucket + /static/ folder
+    #
+    # Optional env vars:
+    # CACHE_LOCATION - elastic cache location
+    # DEBUG
+    # CONN_MAX_AGE - DB connection max age, defaults to 0
+    # CACHE_TIMEOUT - defaults to 300ms, used if CACHE_LOCATION set
+    #
+    # Application specific, common
+    # GOOGLE_API_KEY
+    # FACEBOOK_APP_ID
+    # FACEBOOK_APP_SECRET
+    # RECAPTCHA_PUBLIC_KEY
+    # RECAPTCHA_PRIVATE_KEY
+    # SENTRY_DSN
+
+Managing devdata
+----------------
+
+     # Use with caution, avoid using on live site, it can break your migrations
+    ./manage.py dump_devdata
+    ./manage.py load_devdata
+
+
+Destroy and create a new database
+---------------------------------
+
+    sudo su postgres
+    dropdb <project_name>_dev
+    createdb <project_name>_dev --owner dbuser
+    exit
+
+    cd <path-to-project>/site/<project_name>
+    
+    # Use with caution, avoid using on live site, it can break your migrations
+    ./manage.py load_devdata

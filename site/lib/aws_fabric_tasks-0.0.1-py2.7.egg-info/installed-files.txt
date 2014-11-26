@@ -1,0 +1,15 @@
+../aws_tasks/__init__.py
+../aws_tasks/decorators.py
+../aws_tasks/storage_backends.py
+../aws_tasks/tasks.py
+../aws_tasks/__init__.pyc
+../aws_tasks/decorators.pyc
+../aws_tasks/storage_backends.pyc
+../aws_tasks/tasks.pyc
+./
+dependency_links.txt
+not-zip-safe
+PKG-INFO
+requires.txt
+SOURCES.txt
+top_level.txt

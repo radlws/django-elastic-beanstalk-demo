@@ -1,0 +1,5 @@
+#Used for elastic beanstalk projects
+django==1.6.8
+psycopg2
+Pillow
+pylibmc

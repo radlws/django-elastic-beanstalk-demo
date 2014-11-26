@@ -1,0 +1,25 @@
+{
+    "less": {
+        "core": {
+            "src": [
+                "less/base/normalize.less",
+                "less/base/fonts.less",
+                "less/base/layout.less",
+                "less/base/base.less",
+                "less/modules/modules.less"
+            ],
+            "attrs": {
+                "media": "screen"
+            },
+            "dest": "dist/css/core.min.css"
+        }
+    },
+    "js": {
+        "core": {
+            "src": [
+                "js/ebtest.controller.js"
+            ],
+            "dest": "dist/js/core.min.js"
+        }
+    }
+}

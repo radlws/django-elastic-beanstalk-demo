@@ -1,0 +1,6 @@
+*.pyc
+.DS_Store
+.elasticbeanstalk/
+.idea/
+._*.png
+._*.jpg

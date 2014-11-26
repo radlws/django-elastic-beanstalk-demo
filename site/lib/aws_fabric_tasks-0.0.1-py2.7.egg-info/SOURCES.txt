@@ -1,0 +1,10 @@
+aws_fabric_tasks.egg-info/PKG-INFO
+aws_fabric_tasks.egg-info/SOURCES.txt
+aws_fabric_tasks.egg-info/dependency_links.txt
+aws_fabric_tasks.egg-info/not-zip-safe
+aws_fabric_tasks.egg-info/requires.txt
+aws_fabric_tasks.egg-info/top_level.txt
+aws_tasks/__init__.py
+aws_tasks/decorators.py
+aws_tasks/storage_backends.py
+aws_tasks/tasks.py

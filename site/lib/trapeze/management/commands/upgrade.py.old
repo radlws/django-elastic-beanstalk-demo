@@ -1,0 +1,72 @@
+from optparse import make_option
+import os
+
+from django.conf import settings
+from django.core.management.base import BaseCommand, CommandError
+from django.utils.translation import ugettext as _
+
+from trapeze import settings as trapeze_settings
+from trapeze.management.commands.get_app import Command as GetAppCommand
+from trapeze.utils import split_release_name, compare_tags
+
+
+class Command(GetAppCommand):
+    args = '[<app_name> ...]'
+    help = 'Checks for newer versions of a reusable app.'
+    option_list = BaseCommand.option_list + (
+        make_option('--noinput', action='store_false', dest='interactive', default=True,
+            help='Tells Django to NOT prompt the user for input of any kind.'),
+    )
+
+    def handle(self, *args, **options):
+        if args:
+            # Verify that the arguments are valid app names
+            for app_name in args:
+                if app_name not in settings.INSTALLED_APPS:
+                    msg = _(u'App with label %(app)s could not be found. '
+                            'Are you sure your INSTALLED_APPS setting is correct?') % {'app': app_name}
+                    raise CommandError(msg)
+        else:
+            # If no args are passed in, we check all apps
+            args = []
+            for app_name in settings.INSTALLED_APPS:
+                if app_name not in trapeze_settings.EXCLUDE_FROM_UPGRADES:
+                    args.append(app_name)
+
+        for app_name in args:
+            if self.get_current_release_name(app_name):
+                self.upgrade_app(app_name, **options)
+
+    def get_current_release_name(self, app_name):
+        if '.' in app_name:
+            return None  # We don't support apps within apps
+
+        module = __import__(app_name)
+        path = os.path.realpath(module.__file__)
+        src_path = os.path.realpath(trapeze_settings.SRC_FOLDER)
+        if path.startswith(src_path):
+            return path.split('/')[-3]
+        else:
+            return None
+
+    def upgrade_app(self, app_name, **options):
+        current_release = self.get_current_release_name(app_name)
+        if not current_release:
+            raise CommandError(_(u'%(app_name)s is not a reusable app') % {'app_name': app_name})
+        package_name = split_release_name(current_release)['name']
+        latest_release = self.get_latest_release(package_name)
+        if not latest_release:
+            self.stdout.write(_(u'WARNING: Could not find tags for %(app_name)s\n') %
+                              {'app_name': app_name})
+            return
+        elif compare_tags(current_release, latest_release) < 0:
+            self.stdout.write(_(u'%(current_release)s needs to be upgraded to %(latest_release)s\n') %
+                              {'current_release': current_release, 'latest_release': latest_release})
+
+            if options.get('interactive'):
+                response = raw_input(_(u"Do you want to upgrade to %(release)s?"
+                                       "\nType 'yes' to continue, or hit enter to skip: ") % {'release': latest_release})
+                if response == 'yes':
+                    self.export_app(app_name, latest_release)
+                else:
+                    self.stdout.write(_('Skiping upgrade.\n'))

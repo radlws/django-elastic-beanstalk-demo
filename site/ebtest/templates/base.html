@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% load i18n %}
+{% load assets %}
+{% load url from future %}
+<html lang="{{ LANGUAGE_CODE|slice:"2" }}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        {# TODOF: set the proper site title #}
+        <title>{% block page_title %}{% trans "[Project Name]" %}{% endblock %}</title>
+
+        {# TODOF: set the proper content for the description meta tag #}
+        <meta name="description" content="{% block meta_description %}{% endblock %}">
+        <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+
+        {# TODOF: Mobile specific settings on the viewport. (remove them if not needed) #}
+        {% comment %}
+        <!--  Mobile Viewport Fix
+              j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
+        device-width : Occupy full width of the screen in its current orientation
+        initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
+        maximum-scale = 1.0 retains dimensions instead of zooming in if page width < device width
+        -->
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+        {% endcomment %}
+
+        {# TODOF: provide a favicon.ico and and apple-touch-icon as needed #}
+        {# TODOF: <link rel="shortcut icon" type="image/ico" href="{{ STATIC_URL }}images/favicon.ico"> #}
+        {# TODOF: <link rel="apple-touch-icon" href="{{ STATIC_URL }}images/apple-touch-icon.png"> #}
+
+        {% use_asset "less" "core" %}
+
+        {% block css %}{% endblock %}
+
+        {# TODOF: IE conditional stylesheet. (remove it if not needed) #}
+        {% comment %}
+        <!--[if IE]>{% use_asset "less" "ie-styles" %}<![endif]-->
+        {% endcomment %}
+
+        {% block syndication %}{% endblock %}
+    </head>
+
+    <body class="lang-{{ LANGUAGE_CODE }} {% block body_class %}{% endblock %}">
+
+        {% block body %}
+            {% block content %}{% endblock %}
+        {% endblock body %}
+
+        {# TODOF: Javascript Initialization #}
+        {% comment %}
+        {% block javascript_library %}
+            {% use_asset "js" "core" %}
+        {% endblock %}
+
+        {% block javascript_init %}
+            <script>
+                $(function () {
+                    Trapeze.Project = new Trapeze.Core();
+                });
+            </script>
+        {% endblock %}
+        {% endcomment %}
+
+        {# TODOF: remove if no analytics is needed or set it up with the specified analytics from your project. #}
+        {# remove the django comment tags and change the UA-XXXXX-X to your site's ID for this to work #}
+        {% comment %}
+        {% block analytics %}
+            <script type="text/javascript">
+                var _gaq = _gaq || [];
+                _gaq.push(['_setAccount', 'UA-XXXXX-X']);
+                _gaq.push(['_trackPageview']);
+                (function() {
+                  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                })();
+            </script>
+        {% endblock %}
+        {% endcomment %}
+
+        {% if debug %}
+        <script>
+            (function (d) {
+                var js, id = 'livereload', ref = d.getElementsByTagName('script')[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement('script'); js.id = id; js.async = true;
+                js.src = '//' + d.location.hostname + ':35729/livereload.js?snipver=1';
+                ref.parentNode.insertBefore(js, ref);
+            })(document);
+        </script>
+        {% endif %}
+    </body>
+</html>

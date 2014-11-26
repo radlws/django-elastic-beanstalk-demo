@@ -1,0 +1,98 @@
+import subprocess
+
+from django.core.management.base import BaseCommand, CommandError
+from django.utils.translation import ugettext as _
+
+from trapeze import settings as trapeze_settings
+
+
+class Command(BaseCommand):
+    args = '[<app_name> ...]'
+    help = 'Exports the latest version of a reusable app into the project.'
+
+    @property
+    def pysvn(self):
+        try:
+            return self._pysvn
+        except AttributeError:
+            try:
+                import pysvn
+            except ImportError:
+                raise CommandError("trapeze: pysvn required for this command. Consult README.")
+
+            self._pysvn = pysvn
+            return self._pysvn
+
+    def handle(self, *args, **options):
+        for app_name in args:
+            self.get_app(app_name)
+
+    def get_app(self, app_name):
+        package_name = self.get_package_name(app_name)
+        latest_release = self.get_latest_release(package_name)
+        if not latest_release:
+            raise CommandError(_(u'Could not find tags for %(app_name)s\n') %
+                               {'app_name': app_name})
+        self.export_app(app_name, latest_release)
+
+    def get_package_name(self, app_name):
+        if app_name in trapeze_settings.APP_NAMES_TO_PACKAGE:
+            return trapeze_settings.APP_NAMES_TO_PACKAGE[app_name]
+        else:
+            return app_name
+
+    def get_latest_release(self, app_name):
+        # Get latest version
+        path_to_tags = '%s%s/tags/' % (trapeze_settings.REUSABLE_APP_SVN_PATH,
+            self.get_package_name(app_name),
+        )
+
+        svnclient = self.pysvn.Client()
+        try:
+            listing = svnclient.ls(path_to_tags)
+        except self.pysvn.ClientError:
+            return None
+
+        latest_release = None
+        latest_time = 0
+        for entry in listing:
+            if entry['time'] > latest_time:
+                latest_time = entry['time']
+                latest_release = entry['name'].split('/')[-1]
+        return latest_release
+
+        """
+            release_name = entry['name'].split('/')[-1]
+
+            try:
+                split_release_name(release_name)
+            except InvalidReleaseNameError:
+                pass
+            else:
+                tag_list.append(release_name)
+        tag_list = sorted(tag_list, compare_tags)
+        if len(listing) > 0:
+            return tag_list[-1]
+        else:
+            return None
+        """
+
+    def export_app(self, app_name, tag_name):
+        path_to_tag = '%s%s/tags/%s' % (trapeze_settings.REUSABLE_APP_SVN_PATH,
+            self.get_package_name(app_name), tag_name,
+        )
+        self.stdout.write(_('Exporting %(path)s ...') % {'path': path_to_tag})
+        self.stdout.flush()
+        svnclient = self.pysvn.Client()
+        svnclient.export(path_to_tag, trapeze_settings.SRC_FOLDER + tag_name)
+        self.stdout.write(_('Done\n'))
+
+        # Overwrite the symlink
+        command = ['ln', '-sf',
+            '%s%s/%s' % (trapeze_settings.SRC_FOLDER, tag_name, app_name),
+            trapeze_settings.LIB_FOLDER,
+        ]
+        subprocess.check_call(command)
+
+        self.stdout.write(_('%(tag_name)s has been exported into the project.\n') % {'tag_name': tag_name})
+        self.stdout.write(_('Remember to read the README for instructions on installing the app.\n'))

@@ -1,0 +1,3 @@
+recursive-include libs *
+include README
+include RELEASES
